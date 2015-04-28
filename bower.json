@@ -1,0 +1,19 @@
+{
+  "name": "universe-creator",
+  "version": "0.0.0",
+  "authors": [
+    "Sunjay Varma"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "1.3.15",
+    "bootstrap": "~3.3.4"
+  }
+}
