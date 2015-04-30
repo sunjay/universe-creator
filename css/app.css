@@ -1,0 +1,5 @@
+.story-editor {
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: scroll;
+}
