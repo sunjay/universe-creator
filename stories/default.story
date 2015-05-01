@@ -1,14 +1,14 @@
-# Universe Creator - Start File
-#
-# Use this file as a starting point for your universe. It's a good way to
-# learn how universe files work.
-#
+# Starting Point
 # To start, any line that starts with a `#` is automatically ignored.
 # A `#` anywhere else is just treated like a regular `#`.
+#
+# Use markdown syntax to style your stories:
+# <http://daringfireball.net/projects/markdown/syntax>
 
 $1: This is your start screen
-Use a dollar sign `$` followed by some text (without spaces or symbols) and then a colon. The text after that colon is the title of that screen. The
-text you're reading right now is the content of that screen.
+Use a dollar sign `$` followed by some text (without spaces or symbols)
+and then a colon. The text after that colon is the title of that
+screen. The text you're reading right now is the content of that screen.
 
 The start screen is always named `$1` or `$START`
 
