@@ -1,4 +1,4 @@
-# Starting Point
+######## Starting Point ########
 # To start, any line that starts with a #
 # is automatically ignored. A # anywhere
 # else is just treated like a regular #.
@@ -44,7 +44,7 @@ This screen doesn't go anywhere, so it automatically
 ends the story.
 
 $walk: Man...you're slow.
-Run faster! Type 'run' to start running. Type 'walk'
+Run faster! Type "run" to start running. Type "walk"
 to continue walking...
 
 ->$walk
