@@ -9,8 +9,9 @@
                 story: '='
             },
             controller: ["$scope", function($scope) {
+                this.universe = Universe.fromText($scope.story);
                 $scope.$watch('story', function(data) {
-                    console.log(data);
+                    this.universe = Universe.fromText(data);
                 });
             }]
         };
