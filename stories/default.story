@@ -1,4 +1,4 @@
-######## Starting Point ########
+######## START HERE ########
 # To start, any line that starts with a `#`
 # is automatically ignored. A `#` anywhere
 # else is just treated like a regular `#`.
