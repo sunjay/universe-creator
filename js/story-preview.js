@@ -12,6 +12,7 @@
                 this.universe = Universe.fromText($scope.story);
                 $scope.$watch('story', function(data) {
                     this.universe = Universe.fromText(data);
+                    console.log(this.universe);
                 });
             }]
         };
