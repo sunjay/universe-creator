@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("universe-creator", ['ui.codemirror']);
+    var app = angular.module("universe-creator", ['ui.codemirror', 'story-preview']);
 
     app.directive("universeCreator", ["$http", function($http) {
         return {
