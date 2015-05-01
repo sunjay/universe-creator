@@ -1,6 +1,6 @@
 # Starting Point
-# To start, any line that starts with a `#` is automatically ignored.
-# A `#` anywhere else is just treated like a regular `#`.
+# To start, any line that starts with a # is automatically ignored.
+# A # anywhere else is just treated like a regular #.
 #
 # Use markdown syntax to style your stories:
 # <http://daringfireball.net/projects/markdown/syntax>

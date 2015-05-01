@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("universe-creator", []);
+    var app = angular.module("universe-creator", ['ui.codemirror']);
 
     app.directive("universeCreator", ["$http", function($http) {
         return {
@@ -7,6 +7,9 @@
             templateUrl: 'templates/universe-creator.html',
             controller: function() {
                 this.story = "";
+                this.storyEditorOptions = {
+                    mode: 'markdown'
+                };
 
                 $http.get('stories/default.story').success(function(data) {
                         this.story = data;
