@@ -13,7 +13,9 @@ The text after that colon is the title of that
 screen. The text you're reading right now is
 the content of that screen.
 
-The start screen is always named `$1` or `$START`
+The start screen is always named `$1` or `$START`.
+Case doesn't matter, so `$sTart`, `$start` and
+`$START` are all equivalent.
 
 When you're writing your story, you should tell
 your user what they can enter to continue onto
@@ -28,14 +30,14 @@ you can enter "continue" to go to the next screen.
 # "or" - that is, this/that
 # A user can enter the ID `2` or `continue` to
 # go to the next screen.
-->$2/continue
+->2/continue
 
 $2: This is the second screen
 This screen has lots of content.
 
 You can enter "run", "jog" or "walk" to continue.
-->$run/jog
-->$walk
+->run/jog
+->walk
 
 $run: Run! Ruuunnn!!!
 Look behind you! Or don't! Just run away!!!
@@ -47,5 +49,5 @@ $walk: Man...you're slow.
 Run faster! Type "run" to start running. Type "walk"
 to continue walking...
 
-->$walk
-->$run
+->walk
+->run

@@ -11,6 +11,11 @@
     var COMMENT_BEGIN = /^#$/;
     var SCREEN_ID_BEGIN = /^\$$/;
     var SCREEN_ID_END = /^:$/;
+    var VALID_SCREEN_ID = /^[a-z0-9_\-]+$/i;
+    var SCREEN_CONNECTION = /^->([\$ a-z0-9_\/]+)$/i;
+    var CONNECTION_ALIAS_SEPARATOR = '/';
+
+    var START_SCREEN_IDS = ['start', '1'];
 
     function Scanner() {
         this.text = "";
@@ -64,10 +69,11 @@
         return whitespace;
     };
 
-    function UniverseScreen(title, text) {
+    function UniverseScreen(screen_id, title) {
+        this.screen_id = screen_id;
         this.title = title;
-        this.text = text;
-        this.connections = [];
+        this.text = "";
+        this.connections = {};
     }
 
     function Universe() {
@@ -83,8 +89,6 @@
         var universe = new Universe();
         var scanner = new Scanner();
         scanner.loadText(text);
-
-        scanner.ignoreWhitespace();
         
         var screen = null;
         var char, screen_id, screen_title, screen_text;
@@ -92,18 +96,74 @@
             if (scanner.atEOF()) {
                 break;
             }
-            var trimmedLine = line.trimLeft();
-            if (COMMENT_BEGIN.test(line[0])) {
+
+            scanner.ignoreWhitespace();
+
+            char = scanner.getChar();
+            if (COMMENT_BEGIN.test(char)) {
+                scanner.readUntilMatch(EOL);
                 continue;
             }
 
             scanner.ignoreWhitespace();
-            char = scanner.getChar();
             if (SCREEN_ID_BEGIN.test(char)) {
-                screen_id = scanner.readUntilMatch(SCREEN_ID_END);
-                screen_title = scanner.readUntilMatch(EOL);
+                screen_id = scanner.readUntilMatch(SCREEN_ID_END).toLowerCase();
+                if (!VALID_SCREEN_ID.test(screen_id)) {
+                    throw new Error("Invalid screen id: '" + screen_id + "'");
+                }
+
+                screen_title = scanner.readUntilMatch(EOL).trimLeft();
             }
+            else {
+                throw new Error("Text without screen ID");
+            }
+
+            screen = new UniverseScreen(screen_id, screen_title);
+
+            var line, trimmedLine, firstChar;
+            var connections = {};
+            while (!scanner.atEOF()) {
+                var nextChar = scanner.getChar();
+                scanner.ungetChar();
+                if (SCREEN_ID_BEGIN.test(nextChar)) {
+                    break;
+                }
+
+                line = scanner.readUntilMatch(EOL);
+                trimmedLine = line.trimLeft();
+                if (COMMENT_BEGIN.test(trimmedLine[0])) {
+                    continue;
+                }
+
+                var connection_match = trimmedLine.match(SCREEN_CONNECTION);
+                if (connection_match) {
+                    var connection_aliases = connection_match[1].split(CONNECTION_ALIAS_SEPARATOR);
+                    var connected_to = connection_aliases[0].toLowerCase();
+                    connections[connected_to] = connected_to;
+                    connection_aliases.slice(1).forEach(function(alias) {
+                        connections[alias.toLowerCase()] = connected_to;
+                    });
+                    continue;
+                }
+                
+                if (!trimmedLine.length) {
+                    screen.text += "\n\n"
+                }
+                else {
+                    screen.text += line + " ";
+                }
+            }
+            screen.text = screen.text.trim();
+            screen.connections = connections;
+
+            universe.screens[screen_id] = screen;
         }
+        
+        START_SCREEN_IDS.forEach(function(start_screen_id) {
+            if (universe.screens.hasOwnProperty(start_screen_id)) {
+                universe.current_screen = universe.screens[start_screen_id];
+            }
+        });
 
         return universe;
     };
