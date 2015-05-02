@@ -10,8 +10,17 @@
             },
             controller: ["$scope", function($scope) {
                 $scope.universe = Universe.fromText($scope.story);
+                $scope.universeError = "";
+                $scope.navigationError = "";
+
                 $scope.$watch('story', function(data) {
-                    $scope.universe = Universe.fromText(data);
+                    $scope.universeError = "";
+                    try {
+                        $scope.universe = Universe.fromText(data);
+                    }
+                    catch (error) {
+                        $scope.universeError = error.message;
+                    }
                 });
             }]
         };

@@ -10,7 +10,7 @@
     var EOL = /^\n$/;
     var COMMENT_BEGIN = /^#$/;
     var SCREEN_ID_BEGIN = /^\$$/;
-    var SCREEN_ID_END = /^:$/;
+    var SCREEN_ID_END = /^[:\n]$/;
     var VALID_SCREEN_ID = /^[a-z0-9_\-]+$/i;
     var SCREEN_CONNECTION = /^->([\$ a-z0-9_\/]+)$/i;
     var CONNECTION_ALIAS_SEPARATOR = '/';
@@ -105,17 +105,17 @@
                 continue;
             }
 
-            scanner.ignoreWhitespace();
             if (SCREEN_ID_BEGIN.test(char)) {
-                screen_id = scanner.readUntilMatch(SCREEN_ID_END).toLowerCase();
-                if (!VALID_SCREEN_ID.test(screen_id)) {
+                screen_id = scanner.readUntilMatch(SCREEN_ID_END).trim().toLowerCase();
+                console.log(screen_id);
+                if (!screen_id || !VALID_SCREEN_ID.test(screen_id)) {
                     throw new Error("Invalid screen id: '" + screen_id + "'");
                 }
 
                 screen_title = scanner.readUntilMatch(EOL).trimLeft();
             }
             else {
-                throw new Error("Text without screen ID");
+                throw new Error("Text cannot appear defined before a screen");
             }
 
             screen = new UniverseScreen(screen_id, screen_title);

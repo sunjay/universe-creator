@@ -1,12 +1,25 @@
-<div class="story-preview">
-    <h4>{{universe.current_screen.title}}</h4>
+<div class="alert alert-danger alert-dismissible" role="alert" ng-if="universeError">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p><strong><span class="glyphicon glyphicon-remove"></span> Error Reading Your Universe:</strong><br>{{universeError}}</p>
+</div>
+<div class="story-preview" ng-show="universe.current_screen">
+    <h4 ng-if="universe.current_screen.title">{{universe.current_screen.title}}</h4>
     <div marked="universe.current_screen.text"></div>
     <form class="row" novalidate>
         <div class="col-xs-8 col-sm-10">
-            <input type="text" class="form-control input-sm" required>
+            <div class="form-group" ng-class="{'has-error': !!navigationError}">
+                <input type="text" class="form-control input-sm" required>
+            </div>
         </div>
         <div class="col-xs-4 col-sm-2">
             <input type="submit" value="Go" class="btn btn-sm btn-block btn-primary">
         </div>
     </form>
+    <p class="text-danger" ng-if="navigationError">
+        <strong>Error:</strong> {{navigationError}}
+    </p>
 </div>
+<div class="story-preview-no-screen" ng-hide="universe.current_screen || universeError">
+    <p class="text-muted text-center">No screen available to show</p>
+</div>
+
