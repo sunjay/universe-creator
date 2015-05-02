@@ -5,17 +5,20 @@
 <div class="story-preview" ng-show="universe.current_screen">
     <h4 ng-if="universe.current_screen.title">{{universe.current_screen.title}}</h4>
     <div marked="universe.current_screen.text"></div>
-    <form class="row" novalidate>
+    <form class="row" novalidate ng-submit="processCommand()" ng-if="universe.current_screen.has_connections()">
         <div class="col-xs-8 col-sm-10">
             <div class="form-group" ng-class="{'has-error': !!navigationError}">
-                <input type="text" class="form-control input-sm" required>
+                <input ng-model="navigationCommand" type="text" class="form-control input-sm" required>
             </div>
         </div>
         <div class="col-xs-4 col-sm-2">
-            <input type="submit" value="Go" class="btn btn-sm btn-block btn-primary">
+            <input type="submit" value="Go" class="btn btn-sm btn-block btn-success">
         </div>
     </form>
-    <p class="text-danger" ng-if="navigationError">
+    <div ng-if="!universe.current_screen.has_connections()">
+        <button ng-click="universe.navigateToStart()" class="btn btn-sm btn-primary" autofocus>Restart</button>
+    </div>
+    <p class="text-danger" ng-if="!!navigationError">
         <strong>Error:</strong> {{navigationError}}
     </p>
 </div>

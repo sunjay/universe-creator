@@ -76,13 +76,35 @@
         this.connections = {};
     }
 
+    UniverseScreen.prototype.has_connections = function() {
+        return !!Object.keys(this.connections).length;
+    }
+
     function Universe() {
         this.screens = {};
         this.current_screen = null;
     }
     window.Universe = Universe;
 
-    Universe.navigateTo = function(screen_id) {
+    Universe.prototype.navigateTo = function(navigationCommand) {
+        if (!this.current_screen) {
+            throw new Error("No screen to navigate from");
+        }
+        if (!this.current_screen.connections.hasOwnProperty(navigationCommand)) {
+            throw new Error("Invalid Option: " + navigationCommand);
+        }
+
+        var screen_id = this.current_screen.connections[navigationCommand];
+
+        this.current_screen = this.screens[screen_id];
+    };
+
+    Universe.prototype.navigateToStart = function() {
+        START_SCREEN_IDS.forEach(function(start_screen_id) {
+            if (this.screens.hasOwnProperty(start_screen_id)) {
+                this.current_screen = this.screens[start_screen_id];
+            }
+        }.bind(this));
     };
 
     Universe.fromText = function(text) {
@@ -107,7 +129,6 @@
 
             if (SCREEN_ID_BEGIN.test(char)) {
                 screen_id = scanner.readUntilMatch(SCREEN_ID_END).trim().toLowerCase();
-                console.log(screen_id);
                 if (!screen_id || !VALID_SCREEN_ID.test(screen_id)) {
                     throw new Error("Invalid screen id: '" + screen_id + "'");
                 }
@@ -159,11 +180,7 @@
             universe.screens[screen_id] = screen;
         }
         
-        START_SCREEN_IDS.forEach(function(start_screen_id) {
-            if (universe.screens.hasOwnProperty(start_screen_id)) {
-                universe.current_screen = universe.screens[start_screen_id];
-            }
-        });
+        universe.navigateToStart();
 
         return universe;
     };

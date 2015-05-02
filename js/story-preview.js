@@ -9,6 +9,7 @@
                 story: '='
             },
             controller: ["$scope", function($scope) {
+                $scope.navigationCommand = "";
                 $scope.universe = Universe.fromText($scope.story);
                 $scope.universeError = "";
                 $scope.navigationError = "";
@@ -22,6 +23,17 @@
                         $scope.universeError = error.message;
                     }
                 });
+
+                $scope.processCommand = function() {
+                    $scope.navigationError = "";
+                    try {
+                        $scope.universe.navigateTo(this.navigationCommand);
+                        this.navigationCommand = "";
+                    }
+                    catch (error) {
+                        $scope.navigationError = error.message;
+                    }
+                };
             }]
         };
     });

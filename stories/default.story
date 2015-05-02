@@ -48,7 +48,7 @@ This screen doesn't go anywhere, so it automatically
 ends the story.
 
 $walk: Man...you're slow.
-Run faster! Type "run" to start running. Type "walk"
+Go faster! Type "run" to start running. Type "walk"
 to continue walking...
 
 ->walk
