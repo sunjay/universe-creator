@@ -19,7 +19,9 @@ Case doesn't matter, so `$sTart`, `$start` and
 
 When you're writing your story, you should tell
 your user what they can enter to continue onto
-the next screen. For example, on this screen,
+the next screen.
+
+For example, on this screen,
 you can enter "continue" to go to the next screen.
 
 # You specify valid screens the user can go to
