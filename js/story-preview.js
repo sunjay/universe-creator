@@ -25,6 +25,10 @@
                 });
 
                 $scope.processCommand = function() {
+                    if (!this.navigationCommand) {
+                        return;
+                    }
+
                     $scope.navigationError = "";
                     try {
                         $scope.universe.navigateTo(this.navigationCommand);
