@@ -7,8 +7,9 @@
             </div>
             <div class="panel-body">
                 <form name="storyEditorForm">
-                    <textarea ng-model="universe.story" class="story-editor form-control" rows="30" ui-codemirror ui-codemirror-opts="universe.storyEditorOptions"></textarea>
+                    <textarea ng-model="$storage.story" class="story-editor form-control" rows="30" ui-codemirror ui-codemirror-opts="universe.storyEditorOptions"></textarea>
                 </form>
+                <button ng-click="resetToDefaultStory()" class="btn btn-xs btn-danger">Reset To Default Story</button>
             </div>
         </div>
     </section>
@@ -18,7 +19,7 @@
                 <h3 class="panel-title">Preview Story:</h3>
             </div>
             <div class="panel-body">
-                <story-preview story="universe.story"></story-preview>
+                <story-preview story="$storage.story"></story-preview>
             </div>
         </div>
     </section>

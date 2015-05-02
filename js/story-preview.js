@@ -10,7 +10,7 @@
             },
             controller: ["$scope", function($scope) {
                 $scope.navigationCommand = "";
-                $scope.universe = Universe.fromText($scope.story);
+                $scope.universe = null;
                 $scope.universeError = "";
                 $scope.navigationError = "";
 
