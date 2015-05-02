@@ -3,7 +3,7 @@
 # is automatically ignored. A `#` anywhere
 # else is just treated like a regular `#`.
 #
-# Use markdown syntax to style your stories:
+# Use **markdown** syntax to style your stories:
 # <http://daringfireball.net/projects/markdown/syntax>
 
 $1: This is your start screen

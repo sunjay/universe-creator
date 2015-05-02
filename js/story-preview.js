@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module("story-preview", []);
+    var app = angular.module("story-preview", ["hc.marked"]);
 
     app.directive("storyPreview", function() {
         return {
@@ -9,10 +9,9 @@
                 story: '='
             },
             controller: ["$scope", function($scope) {
-                this.universe = Universe.fromText($scope.story);
+                $scope.universe = Universe.fromText($scope.story);
                 $scope.$watch('story', function(data) {
-                    this.universe = Universe.fromText(data);
-                    console.log(this.universe);
+                    $scope.universe = Universe.fromText(data);
                 });
             }]
         };
