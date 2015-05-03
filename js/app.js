@@ -10,16 +10,19 @@
                 $scope.storyEditorOptions = {
                     mode: 'markdown'
                 };
+
+                $http.get('stories/default.story').success(function(data) {
+                        $scope.$storage.story = data;
+                }).success(function() {
+                    if (!$scope.$storage.story) {
+                        $scope.resetToDefaultStory();
+                    }
+                });
+
                 
                 $scope.resetToDefaultStory = function() {
-                    $http.get('stories/default.story').success(function(data) {
-                            $scope.$storage.story = data;
-                    });
-                };
-                if (!$scope.$storage.story) {
-                    $scope.resetToDefaultStory();
-                }
-            }],
+                                    };
+                            }],
             controllerAs: 'universe',
         };
     }]);
